@@ -1,0 +1,71 @@
+<div class="card shadow-sm">
+  <div
+    class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2"
+  >
+    <h5 class="mb-0">Invoices</h5>
+    <div>
+      <button
+        class="btn btn-primary me-2"
+        (click)="router.navigate(['/invoices/new'])"
+      >
+        New Invoice
+      </button>
+      <button class="btn btn-secondary me-2" (click)="exportpgf()">
+        ExportPDF
+      </button>
+      <button class="btn btn-outline-secondary me-2" (click)="exportcsv()">
+        ExportCSV
+      </button>
+      <button class="btn btn-outline-secondary" (click)="printall()">
+        Print All
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-sm mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Items</th>
+            <th style="width: 250px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inv of invoices; trackBy: trackByIndex">
+            <td>{{ inv.id }}</td>
+            <td>{{ customername(inv.customerid) }}</td>
+            <td>{{ inv.date }}</td>
+            <td>{{ inv.items.length }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary"
+                (click)="viewinvoice(inv.id)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-danger ms-2"
+                (click)="deleteinvoice(inv.id)"
+              >
+                Delete
+              </button>
+              <button
+                class="btn btn-sm btn-outline-dark ms-2"
+                (click)="printinvoice(inv.id)"
+              >
+                Print
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="invoices.length === 0">
+            <td colspan="5" class="text-center text-muted">No invoices yet</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

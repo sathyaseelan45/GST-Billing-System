@@ -1,0 +1,159 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="m-0">{{ editid ? "Edit Invoice" : "New Invoice" }}</h4>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onsubmit()" novalidate>
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Customer</label>
+          <select class="form-select" formControlName="customerid">
+            <option [ngValue]="null" disabled>Select customer</option>
+            <option *ngFor="let c of customers" [ngValue]="c.id">
+              {{ c.name }} ({{ c.state }})
+            </option>
+          </select>
+          <div
+            class="text-danger small mt-1"
+            *ngIf="
+              form.controls['customerid'].invalid &&
+              form.controls['customerid'].touched
+            "
+          >
+            Customer is required
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" formControlName="date" />
+          <div
+            class="text-danger small mt-1"
+            *ngIf="
+              form.controls['date'].invalid && form.controls['date'].touched
+            "
+          >
+            Date is required
+          </div>
+        </div>
+      </div>
+
+      <div formArrayName="items" class="mb-2">
+        <div
+          *ngFor="let item of items.controls; let i = index"
+          [formGroupName]="i"
+          class="border rounded p-3 mb-2"
+        >
+          <div class="row g-2 align-items-end">
+            <div class="col-md-4">
+              <label class="form-label">Product</label>
+              <select class="form-select" formControlName="productid">
+                <option [ngValue]="null" disabled>Select product</option>
+                <option *ngFor="let p of products" [ngValue]="p.id">
+                  {{ p.name }} — ₹{{ p.price | number : "1.2-2" }} (GST
+                  {{ p.gstrate }}%)
+                </option>
+              </select>
+              <div
+                class="text-danger small mt-1"
+                *ngIf="
+                  item.get('productid')?.invalid &&
+                  item.get('productid')?.touched
+                "
+              >
+                Product is required
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <label class="form-label">Qty</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="quantity"
+                min="1"
+              />
+              <div
+                class="text-danger small mt-1"
+                *ngIf="
+                  item.get('quantity')?.invalid && item.get('quantity')?.touched
+                "
+              >
+                <span *ngIf="item.get('quantity')?.errors?.['required']"
+                  >Quantity is required</span
+                >
+                <span *ngIf="item.get('quantity')?.errors?.['min']"
+                  >Minimum quantity is 1</span
+                >
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label">Line Amount</label>
+              <div class="form-control">
+                {{
+                  (getproductsbyid(item.get("productid")?.value)?.price ?? 0) *
+                    (item.get("quantity")?.value || 0) | number : "1.2-2"
+                }}
+              </div>
+            </div>
+
+            <div class="col-md-2 d-flex justify-content-end">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removeitem(i)"
+                [disabled]="items.length === 1"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button
+          type="button"
+          class="btn btn-sm btn-primary me-2"
+          (click)="additem()"
+        >
+          Add Item
+        </button>
+      </div>
+
+      <hr />
+
+      <div class="text-end">
+        <div>
+          Taxable Value:
+          <strong>₹{{ totals.taxable | number : "1.2-2" }}</strong>
+        </div>
+        <div *ngIf="totals.cgst">
+          CGST: ₹{{ totals.cgst | number : "1.2-2" }}
+        </div>
+        <div *ngIf="totals.sgst">
+          SGST: ₹{{ totals.sgst | number : "1.2-2" }}
+        </div>
+        <div *ngIf="totals.igst">
+          IGST: ₹{{ totals.igst | number : "1.2-2" }}
+        </div>
+        <h4 class="mt-2">Total: ₹{{ totals.total | number : "1.2-2" }}</h4>
+      </div>
+
+      <div class="mt-3 text-end">
+        <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+          Save Invoice
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary ms-2"
+          (click)="router.navigate(['/invoices'])"
+        >
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
