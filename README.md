@@ -2,58 +2,113 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
 
-## Development server
+# Features
 
-To start a local development server, run:
+Manage Customers: Add, Edit, Delete
+
+Manage Products: Add, Edit, Delete
+
+Manage Invoices: Add, Edit, Delete
+
+Reactive Form Validation for all input fields
+
+Dynamic Tax Calculation (CGST, SGST, IGST) based on customer state
+
+Print individual invoices or the entire list
+
+Export invoices as CSV or PDF
+
+Fully responsive UI with Bootstrap 5
+
+Routing with lazy-loaded standalone components
+
+# Technologies Used
+
+Angular 19 (Standalone Components)
+
+TypeScript
+
+Reactive Forms
+
+Bootstrap 5
+
+localStorage for persistence
+
+jsPDF and jspdf-autotable for PDF export
+
+# Project Structure
+
+src/
+├─ app/
+│  ├─ customer-form/
+│  ├─ customer-list/
+│  ├─ product-form/
+│  ├─ product-list/
+│  ├─ invoice-form/
+│  ├─ invoice-list/
+│  ├─ models/
+│  │  ├─ customer.ts
+│  │  ├─ product.ts
+│  │  └─ invoice.ts
+│  ├─ services/
+│  │  ├─ customer.service.ts
+│  │  ├─ product.service.ts
+│  │  └─ invoice.service.ts
+│  ├─ app-routing.ts
+│  └─ app.component.ts / app.component.html
+└─ assets/
+
+# Setup & Installation
+
+Clone the repository:
+
+```bash
+git clone 
+cd gst-billing-angular
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the project:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open in browser: http://localhost:4200/
 
-## Code scaffolding
+# Usage
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Navigate between Customers, Products, and Invoices using the navbar.
 
-```bash
-ng generate component component-name
-```
+Fill the forms to add new customers/products/invoices.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Edit or Delete existing entries using the buttons in the tables.
 
-```bash
-ng generate --help
-```
+Add multiple items in an invoice dynamically.
 
-## Building
+Totals are automatically calculated including applicable taxes.
 
-To build the project run:
+Export invoice list as CSV or PDF using the buttons in the invoice list page.
 
-```bash
-ng build
-```
+Print individual invoices or all invoices using the print buttons.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+# Live Demo Link
 
-## Running unit tests
+https://gst-billing-system-e3ea4.web.app
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+# Notes
 
-```bash
-ng test
-```
+The app uses localStorage to persist data. Refreshing or closing the browser will retain your data.
 
-## Running end-to-end tests
+Taxes are calculated based on Tamil Nadu as seller state:
 
-For end-to-end (e2e) testing, run:
+CGST + SGST if customer is in Tamil Nadu
 
-```bash
-ng e2e
-```
+IGST if customer is in a different state
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
