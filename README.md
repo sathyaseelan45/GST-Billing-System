@@ -23,7 +23,7 @@ Fully responsive UI with Bootstrap 5
 
 Routing with lazy-loaded standalone components
 
-# Technologies Used
+## Technologies Used
 
 Angular 19 (Standalone Components)
 
@@ -37,7 +37,7 @@ localStorage for persistence
 
 jsPDF and jspdf-autotable for PDF export
 
-# Project Structure
+## Project Structure
 
 ```bash
 src/
@@ -61,7 +61,7 @@ src/
 └─ assets/
 ```
 
-# Setup & Installation
+## Setup & Installation
 
 Clone the repository:
 
@@ -84,7 +84,7 @@ ng serve
 
 Open in browser: http://localhost:4200/
 
-# Usage
+## Usage
 
 Navigate between Customers, Products, and Invoices using the navbar.
 
@@ -100,11 +100,11 @@ Export invoice list as CSV or PDF using the buttons in the invoice list page.
 
 Print individual invoices or all invoices using the print buttons.
 
-# Live Demo Link
+## Live Demo Link
 
 https://gst-billing-system-e3ea4.web.app
 
-# Notes
+## Notes
 
 The app uses localStorage to persist data. Refreshing or closing the browser will retain your data.
 
