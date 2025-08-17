@@ -39,6 +39,7 @@ jsPDF and jspdf-autotable for PDF export
 
 # Project Structure
 
+```bash
 src/
 ├─ app/
 │  ├─ customer-form/
@@ -58,6 +59,7 @@ src/
 │  ├─ app-routing.ts
 │  └─ app.component.ts / app.component.html
 └─ assets/
+```
 
 # Setup & Installation
 
